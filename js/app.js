@@ -4,6 +4,7 @@ document.addEventListener('DOMContentLoaded', () => {
     // const grid = document.querySelector('.grid') // Cuando se escriba grid, se hace un cambio en cualquier elemento que tenga la clase grid
     // const ScoreDisplay = document.querySelector('#score')
     // const StartBtn = document.querySelector('#start-button')
+    let nextRandom = 0;
 
     const colores = [
         'url(images/bloque_azul.png)',
@@ -88,7 +89,7 @@ document.addEventListener('DOMContentLoaded', () => {
     }
 
 
-    document.addEventListener('keyup', control)
+    document.addEventListener('keydown', control)
 
     function moveDown() {
         undraw()
@@ -99,12 +100,14 @@ document.addEventListener('DOMContentLoaded', () => {
 
     function freeze() {
         if(current.some(index => squares[currentPosition + index + ancho].classList.contains('taken'))) {
-            current.forEach(index => squares[currentPosition + index].classList.add('taken'))
+            current.forEach(index => squares[currentPosition + index].classList.add('taken'));
             // Dibujar nuevo tetramino
-            random = Math.floor(Math.random() * theTetrominoes.length)
-            current = theTetrominoes[random][currentRotation]
-            currentPosition = 4
+            random = nextRandom;
+            nextRandom = Math.floor(Math.random() * theTetrominoes.length);
+            current = theTetrominoes[random][currentRotation];
+            currentPosition = 4;
             draw()
+            displayShape();
         }
     }
 
@@ -133,7 +136,6 @@ document.addEventListener('DOMContentLoaded', () => {
         draw()
     }
 
-    // rotate the tetromino
     function rotate(){
         undraw();
         currentRotation++;
@@ -143,4 +145,26 @@ document.addEventListener('DOMContentLoaded', () => {
         current = theTetrominoes[random][currentRotation]
         draw();
     }
+
+    const displaySquares = document.querySelectorAll('.mini-grid div');
+    const displayWidth = 4;
+    let displayIndex = 0;
+
+    const upNextTetrominos = [
+        [1, displayWidth+1,displayWidth*2+1,2],
+        [0, displayWidth,displayWidth+1,displayWidth*2+1],
+        [1, displayWidth,displayWidth+1,displayWidth+2],
+        [0, 1,displayWidth,displayWidth+1],
+        [1, displayWidth+1,displayWidth*2+1,displayWidth*3+1],
+    ]
+
+    function displayShape() {
+        displaySquares.forEach((square) => {
+            square.style.backgroundImage = 'none'
+        });
+        upNextTetrominos[nextRandom].forEach((index) => {
+            displaySquares[displayIndex+index].style.backgroundImage = colores[nextRandom]
+        })
+    }
+
 })
