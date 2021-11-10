@@ -1,0 +1,123 @@
+@import url('https://fonts.googleapis.com/css2?family=Montserrat&display=swap');
+
+body {
+    padding: 0rem;
+    margin: 0rem;
+    font-family: "Montserrat", sans-serif;
+    background: radial-gradient(
+        circle,
+        rgba(175, 196, 174, 1) 0%,
+        rgba(104, 204, 191, 1) 89%,
+        rgba(94, 191, 178, 1) 100%
+        );
+    color: white;
+}
+    
+.main-container{
+    width: 50vw;
+    height: 75vh;
+    margin: auto;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    padding: 1rem;
+}
+
+header {
+    font-size: 3rem;
+    text-decoration: uppercase;
+    margin-bottom: 3rem;
+}
+
+.grid {
+    width: 200px;
+    height: 400px;
+    display: flex;
+    flex-wrap: wrap;
+}
+
+.grid div {
+    height: 20px;
+    width: 20px;
+}
+
+.row {
+    display: flex;
+    flex-direction: row;
+}
+
+.grid-container {
+    border: 1px solid #fefefe55;
+}
+
+.score-box {
+    margin-left: 2rem;
+    width: 200px;
+    height: 400px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+
+.square {
+    outline: 1px solid #fefefe55;
+}
+
+footer {
+    line-height: 1.5;
+    color:rgb(66, 66, 66);
+    padding: 1rem;
+}
+
+#start-button {
+    position: relative;
+    height: 2.2rem;
+    text-align: center;
+    color: #fff;
+    letter-spacing: 1px;
+    text-decoration: none;
+    line-height: 23px;
+    font-size: 10px;
+    display: block;
+    margin: 30px;
+    text-shadow: -1px -1px 0 #a84155;
+    background: #d25068;
+    border: 1px solid #d25068;
+    width: 12rem;
+    background-image: linear-gradient(to bottom, #f66c7b, #d25068);
+    border-radius: 30px;
+    box-shadow: 0 1px 0 rgba(255, 255, 255, 0.5) inset,
+      0 -1px 0 rgba(255, 255, 255, 0.1) inset, 0 4px 0 #ad4257,
+      0 4px 2px rgba(0, 0, 0, 0.5);
+}
+  
+#start-button:before {
+    background: #f0f0f0;
+    background-image: linear-gradient(#d0d0d0, #f0f0f0);
+    box-shadow: 0 1px 2px rgba(0, 0, 0, 0.5) inset, 0 1px 0 #fff;
+    position: absolute;
+    left: -6px;
+    right: -6px;
+    top: -6px;
+    bottom: -10px;
+    z-index: -1;
+}
+  
+#start-button:active {
+    box-shadow: 0 1px 0 rgba(255, 255, 255, 0.5) inset,
+      0 -1px 0 rgba(255, 255, 255, 0.1) inset;
+    top: 5px;
+}
+  
+#start-button:active:before {
+    top: -11px;
+    bottom: -5px;
+}
+  
+#start-button:hover {
+    background: #f66c7b;
+    background-image: linear-gradient(top, #d25068, #f66c7b);
+}
+
