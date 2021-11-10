@@ -2,9 +2,10 @@ document.addEventListener('DOMContentLoaded', () => {
     let squares = Array.from(document.querySelectorAll('.grid div'))
     const ancho = 10 // Ancho del grid, para que las piezas se dibujen en esos cuadros
     // const grid = document.querySelector('.grid') // Cuando se escriba grid, se hace un cambio en cualquier elemento que tenga la clase grid
-    // const ScoreDisplay = document.querySelector('#score')
-    // const StartBtn = document.querySelector('#start-button')
+    const scoreDisplay = document.querySelector('#score')
+    const startBtn = document.querySelector('#start-button')
     let nextRandom = 0;
+    let timerId;
 
     const colores = [
         'url(images/bloque_azul.png)',
@@ -73,7 +74,6 @@ document.addEventListener('DOMContentLoaded', () => {
     }
 
     // Hacer que el tetramino se mueva cada segundo
-    timerId = setInterval(moveDown, 500)
 
     // Asignar funciones a las teclas de las flechas.
     function control(e) {
@@ -166,5 +166,17 @@ document.addEventListener('DOMContentLoaded', () => {
             displaySquares[displayIndex+index].style.backgroundImage = colores[nextRandom]
         })
     }
+
+    startBtn.addEventListener('click', () => {
+        if(timerId) {
+            clearInterval(timerId);
+            timerId = null;
+        }else {
+            draw();
+            timerId = setInterval(moveDown, 1000);
+            nextRandom  = Math.floor(Math.random()*theTetrominoes.length);
+            displayShape();
+        }
+    })
 
 })
