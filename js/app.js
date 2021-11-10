@@ -1,9 +1,13 @@
 document.addEventListener('DOMContentLoaded', () => {
     let squares = Array.from(document.querySelectorAll('.grid div'))
+    let grid = document.querySelector(".grid")
     const ancho = 10 // Ancho del grid, para que las piezas se dibujen en esos cuadros
     // const grid = document.querySelector('.grid') // Cuando se escriba grid, se hace un cambio en cualquier elemento que tenga la clase grid
-    // const ScoreDisplay = document.querySelector('#score')
-    // const StartBtn = document.querySelector('#start-button')
+    const scoreDisplay = document.querySelector('#score')
+    const startBtn = document.querySelector('#start-button')
+    let nextRandom = 0;
+    let timerId;
+    let score = 0;
 
     const colores = [
         'url(images/bloque_azul.png)',
@@ -72,14 +76,13 @@ document.addEventListener('DOMContentLoaded', () => {
     }
 
     // Hacer que el tetramino se mueva cada segundo
-    timerId = setInterval(moveDown, 500)
 
     // Asignar funciones a las teclas de las flechas.
     function control(e) {
         if(e.keyCode === 37) { // Tecla izquierda
             moveLeft()
         } else if (e.keyCode === 38) { // Tecla arriba
-            // Rotar (up)
+            rotate();
         } else if (e.keyCode === 39) { // Tecla derecha
             moveRight()
         } else if (e.keyCode === 40) { // Tecla abajo
@@ -87,8 +90,8 @@ document.addEventListener('DOMContentLoaded', () => {
         }
     }
 
-    
-    document.addEventListener('keyup', control)
+
+    document.addEventListener('keydown', control)
 
     function moveDown() {
         undraw()
@@ -99,12 +102,16 @@ document.addEventListener('DOMContentLoaded', () => {
 
     function freeze() {
         if(current.some(index => squares[currentPosition + index + ancho].classList.contains('taken'))) {
-            current.forEach(index => squares[currentPosition + index].classList.add('taken'))
+            current.forEach(index => squares[currentPosition + index].classList.add('taken'));
             // Dibujar nuevo tetramino
-            random = Math.floor(Math.random() * theTetrominoes.length)
-            current = theTetrominoes[random][currentRotation]
-            currentPosition = 4
+            random = nextRandom;
+            nextRandom = Math.floor(Math.random() * theTetrominoes.length);
+            current = theTetrominoes[random][currentRotation];
+            currentPosition = 4;
             draw()
+            displayShape();
+            addScore();
+            gameOver();
         }
     }
 
@@ -132,4 +139,76 @@ document.addEventListener('DOMContentLoaded', () => {
 
         draw()
     }
+
+    function rotate(){
+        undraw();
+        currentRotation++;
+        if(currentRotation === current.length){
+            currentRotation = 0;
+        }
+        current = theTetrominoes[random][currentRotation]
+        draw();
+    }
+
+    const displaySquares = document.querySelectorAll('.mini-grid div');
+    const displayWidth = 4;
+    let displayIndex = 0;
+
+    const upNextTetrominos = [
+        [1, displayWidth+1,displayWidth*2+1,2],
+        [0, displayWidth,displayWidth+1,displayWidth*2+1],
+        [1, displayWidth,displayWidth+1,displayWidth+2],
+        [0, 1,displayWidth,displayWidth+1],
+        [1, displayWidth+1,displayWidth*2+1,displayWidth*3+1],
+    ]
+
+    function displayShape() {
+        displaySquares.forEach((square) => {
+            square.style.backgroundImage = 'none'
+        });
+        upNextTetrominos[nextRandom].forEach((index) => {
+            displaySquares[displayIndex+index].style.backgroundImage = colores[nextRandom]
+        })
+    }
+
+    startBtn.addEventListener('click', () => {
+        if(timerId) {
+            clearInterval(timerId);
+            timerId = null;
+        }else {
+            draw();
+            timerId = setInterval(moveDown, 1000);
+            nextRandom  = Math.floor(Math.random()*theTetrominoes.length);
+            displayShape();
+        }
+    })
+
+    function addScore() {
+        for(let i = 0; i<199; i+= ancho){
+            const row = [i,i+1,i+2,i+3,i+4,i+5,i+6,i+7,i+8,i+9];
+            const fullRow = row.every((index) => squares[index].classList.contains('taken'))
+
+            if(fullRow){
+                score+=10;
+                scoreDisplay.innerHTML = score;
+                row.forEach((index)=> {
+                    squares[index].classList.remove('taken');
+                    squares[index].style.backgroundImage = 'none'
+                });
+                const squaresRemoved = squares.splice(i,ancho);
+                squares = squaresRemoved.concat(squares);
+                squares.forEach((cell) => { grid.appendChild(cell)});
+            }
+        }
+    }
+
+    function gameOver() {
+        const fullUpperRow = current.some((index) => squares[currentPosition+index].classList.contains('taken'));
+
+        if(fullUpperRow) {
+            scoreDisplay.innerHTML = 'End';
+            clearInterval(timerId);
+        }
+    }
+
 })
