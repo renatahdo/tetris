@@ -111,6 +111,7 @@ document.addEventListener('DOMContentLoaded', () => {
             draw()
             displayShape();
             addScore();
+            gameOver();
         }
     }
 
@@ -198,6 +199,15 @@ document.addEventListener('DOMContentLoaded', () => {
                 squares = squaresRemoved.concat(squares);
                 squares.forEach((cell) => { grid.appendChild(cell)});
             }
+        }
+    }
+
+    function gameOver() {
+        const fullUpperRow = current.some((index) => squares[currentPosition+index].classList.contains('taken'));
+
+        if(fullUpperRow) {
+            scoreDisplay.innerHTML = 'End';
+            clearInterval(timerId);
         }
     }
 
