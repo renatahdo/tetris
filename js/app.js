@@ -79,7 +79,7 @@ document.addEventListener('DOMContentLoaded', () => {
         if(e.keyCode === 37) { // Tecla izquierda
             moveLeft()
         } else if (e.keyCode === 38) { // Tecla arriba
-            // Rotar (up)
+            rotate();
         } else if (e.keyCode === 39) { // Tecla derecha
             moveRight()
         } else if (e.keyCode === 40) { // Tecla abajo
@@ -87,7 +87,7 @@ document.addEventListener('DOMContentLoaded', () => {
         }
     }
 
-    
+
     document.addEventListener('keyup', control)
 
     function moveDown() {
@@ -131,5 +131,16 @@ document.addEventListener('DOMContentLoaded', () => {
         }
 
         draw()
+    }
+
+    // rotate the tetromino
+    function rotate(){
+        undraw();
+        currentRotation++;
+        if(currentRotation === current.length){
+            currentRotation = 0;
+        }
+        current = theTetrominoes[random][currentRotation]
+        draw();
     }
 })
