@@ -47,12 +47,11 @@ header {
 }
 
 .mini-grid {
-    margin-left: 50px;
     width: 80px;
     height: 80px;
     display: flex;
     flex-wrap: wrap;
-    background-color: yellow;
+    margin-top: -2rem;
 }
 
 .mini-grid div{
@@ -70,7 +69,7 @@ header {
 }
 
 .score-box {
-    margin-left: 2rem;
+    margin-left: 4rem;
     width: 200px;
     height: 400px;
     display: flex;
@@ -79,8 +78,17 @@ header {
     align-items: center;
 }
 
+#score{
+    font-size: 2rem;
+    color: rgba(133, 121, 107, 0.5);
+}
+
 .square {
     outline: 1px solid #fefefe55;
+}
+
+.taken__end{
+    background-image: url(../images/bloque_durazno.png);
 }
 
 footer {
@@ -139,3 +147,18 @@ footer {
     background-image: linear-gradient(top, #d25068, #f66c7b);
 }
 
+.display {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-around;
+    align-items: center;
+    text-align: center;
+    margin-top: 1rem;
+    width: 15rem;
+    height: 25rem;
+    background: #f0f0f0;
+    background-image: linear-gradient(#d0d0d0, #f0f0f0);
+    border-radius: 5px;
+    box-shadow: 0 1px 2px rgba(0, 0, 0, 0.5) inset, 0 1px 0 #fff;
+    color: #85796b;
+}
