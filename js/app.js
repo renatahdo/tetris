@@ -8,6 +8,7 @@ document.addEventListener('DOMContentLoaded', () => {
     let nextRandom = 0;
     let timerId;
     let score = 0;
+    let endGame = false;
 
     const colores = [
         'url(images/bloque_azul.png)',
@@ -79,14 +80,16 @@ document.addEventListener('DOMContentLoaded', () => {
 
     // Asignar funciones a las teclas de las flechas.
     function control(e) {
-        if(e.keyCode === 37) { // Tecla izquierda
-            moveLeft()
-        } else if (e.keyCode === 38) { // Tecla arriba
-            rotate();
-        } else if (e.keyCode === 39) { // Tecla derecha
-            moveRight()
-        } else if (e.keyCode === 40) { // Tecla abajo
-            moveDown()
+        if(!endGame){
+            if(e.keyCode === 37) { // Tecla izquierda
+                moveLeft()
+            } else if (e.keyCode === 38) { // Tecla arriba
+                rotate();
+            } else if (e.keyCode === 39) { // Tecla derecha
+                moveRight()
+            } else if (e.keyCode === 40) { // Tecla abajo
+                moveDown()
+            }
         }
     }
 
@@ -208,7 +211,7 @@ document.addEventListener('DOMContentLoaded', () => {
         if(fullUpperRow) {
             scoreDisplay.innerHTML = 'Fin del juego';
             clearInterval(timerId);
+            endGame= true;
         }
     }
-
 })
