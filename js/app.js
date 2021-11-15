@@ -206,7 +206,7 @@ document.addEventListener('DOMContentLoaded', () => {
         const fullUpperRow = current.some((index) => squares[currentPosition+index].classList.contains('taken'));
 
         if(fullUpperRow) {
-            scoreDisplay.innerHTML = 'End';
+            scoreDisplay.innerHTML = 'Fin del juego';
             clearInterval(timerId);
         }
     }
