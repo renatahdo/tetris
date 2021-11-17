@@ -4,11 +4,14 @@ document.addEventListener('DOMContentLoaded', () => {
     const ancho = 10 // Ancho del grid, para que las piezas se dibujen en esos cuadros
     // const grid = document.querySelector('.grid') // Cuando se escriba grid, se hace un cambio en cualquier elemento que tenga la clase grid
     const scoreDisplay = document.querySelector('#score')
+    const levelDisplay = document.querySelector('#level')
     const startBtn = document.querySelector('#start-button')
     let nextRandom = 0;
     let timerId;
     let score = 0;
     let endGame = false;
+    let level = 1;
+    let speed = 1000;
 
     const colores = [
         'url(images/bloque_azul.png)',
@@ -180,7 +183,7 @@ document.addEventListener('DOMContentLoaded', () => {
             timerId = null;
         }else {
             draw();
-            timerId = setInterval(moveDown, 1000);
+            timerId = setInterval(moveDown, speed);
             nextRandom  = Math.floor(Math.random()*theTetrominoes.length);
             displayShape();
         }
@@ -201,6 +204,15 @@ document.addEventListener('DOMContentLoaded', () => {
                 const squaresRemoved = squares.splice(i,ancho);
                 squares = squaresRemoved.concat(squares);
                 squares.forEach((cell) => { grid.appendChild(cell)});
+
+                if(score%50===0){
+                    level+=1;
+                    levelDisplay.innerHTML = level;
+                    speed=speed*.6;
+                    clearInterval(timerId);
+                    timerId = setInterval(moveDown, speed);
+
+                }
             }
         }
     }

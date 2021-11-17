@@ -51,7 +51,7 @@ header {
     height: 80px;
     display: flex;
     flex-wrap: wrap;
-    margin-top: -2rem;
+    margin-top: 1rem;
 }
 
 .mini-grid div{
@@ -79,6 +79,11 @@ header {
 }
 
 #score{
+    font-size: 2rem;
+    color: rgba(133, 121, 107, 0.5);
+}
+
+#level{
     font-size: 2rem;
     color: rgba(133, 121, 107, 0.5);
 }
@@ -150,12 +155,11 @@ footer {
 .display {
     display: flex;
     flex-direction: column;
-    justify-content: space-around;
     align-items: center;
     text-align: center;
     margin-top: 1rem;
     width: 15rem;
-    height: 25rem;
+    height: 28rem;
     background: #f0f0f0;
     background-image: linear-gradient(#d0d0d0, #f0f0f0);
     border-radius: 5px;
